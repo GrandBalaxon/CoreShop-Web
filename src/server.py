@@ -4,12 +4,21 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.parent
 
+# Для определения Content-Type
+CONTENT_TYPES = {
+    ".html": "text/html; charset=utf-8",
+    ".css": "text/css",
+    ".svg": "image/svg+xml",
+}
+
 class MyServer(BaseHTTPRequestHandler):
     """Специальный класс, который отвечает за обработку входящих запросов от клиентов."""
 
     def do_GET(self):
         """Метод для обработки входящих GET-запросов."""
-        if self.path == "/" or self.path == "/index.html":
+        if self.path.startswith("/static/"):
+            self.serve_static()
+        elif self.path == "/" or self.path == "/index.html":
             self.serve_html("index.html")
         elif self.path == "/contacts":
             self.serve_html("contacts.html")
@@ -31,3 +40,24 @@ class MyServer(BaseHTTPRequestHandler):
 
         except FileNotFoundError:
             self.send_error(404, "Page not found")
+
+    def serve_static(self):
+        """Отдаёт статический файл из папки static"""
+        file_path = BASE_DIR / self.path.lstrip("/")
+        if not file_path.exists() or not file_path.is_file():
+            self.send_error(404, "File not found")
+            return
+
+        # Определяем Content-Type по расширению
+        suffix = file_path.suffix.lower()
+        content_type = CONTENT_TYPES.get(suffix, "application/octet-stream")
+
+        # Читаем файл как бинарный (картинки, шрифты и т.п.)
+        with open(file_path, "rb") as f:
+            data = f.read()
+
+        self.send_response(200)
+        self.send_header("Content-type", content_type)
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
