@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler
 from pathlib import Path
+from urllib.parse import parse_qs
 
 BASE_DIR = Path(__file__).parent.parent
 
@@ -70,3 +71,24 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(data)))
         self.end_headers()
         self.wfile.write(data)
+
+    def do_POST(self):
+        # Считываем тело запроса
+        content_length = int(self.headers.get('Content-Length', 0))
+        post_data = self.rfile.read(content_length)
+
+        # Расшифровываем данные формы
+        decoded = post_data.decode('utf-8')
+        params = parse_qs(decoded)
+
+        # Печатаем в консоль только разобранные параметры
+        print(f"\nPOST {self.path}")
+        if params:
+            for key, values in params.items():
+                print(f"  {key}: {', '.join(values)}")
+        else:
+            print("  (пустой запрос)")
+        print("\n")
+
+        # Показываем страницу успеха
+        self.serve_html("message_received.html")
