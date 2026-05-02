@@ -2,19 +2,30 @@ from http.server import BaseHTTPRequestHandler
 from pathlib import Path
 
 
+BASE_DIR = Path(__file__).parent.parent
+
 class MyServer(BaseHTTPRequestHandler):
     """Специальный класс, который отвечает за обработку входящих запросов от клиентов."""
 
     def do_GET(self):
         """Метод для обработки входящих GET-запросов."""
-        self.send_response(200)  # Отправка кода ответа
-        self.send_header("Content-type", "text/html")  # Отправка типа данных, который будет передаваться
-        self.end_headers()  # Завершение формирования заголовков ответа
+        if self.path == "/" or self.path == "/index.html":
+            self.serve_html("index.html")
+        elif self.path == "/contacts":
+            self.serve_html("contacts.html")
 
-        project_root = Path(__file__).parent.parent
-        template_path = project_root / "templates" / "index.html"
+    def serve_html(self, template_name):
+        """Отдаёт HTML-шаблон из папки templates"""
+        template_path = BASE_DIR / "templates" / template_name
 
-        with open(template_path, "r", encoding="utf-8") as file:
-            html = file.read()
+        try:
+            with open(template_path, "r", encoding="utf-8") as f:
+                html = f.read()
 
-        self.wfile.write(html.encode("utf-8"))
+            self.send_response(200)
+            self.send_header("Content-type", "text/html; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(html.encode("utf-8"))
+
+        except FileNotFoundError:
+            self.send_error(404, "Page not found")
