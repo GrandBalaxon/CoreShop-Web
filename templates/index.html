@@ -55,10 +55,16 @@
         .footer-user {
             font-size: 14px;
             color: #aaa;
+            font-weight: bold;
         }
 
         .card {
             text-align: center;
+        }
+
+        .user-avatar {
+            border-radius: 50%;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -108,13 +114,15 @@
     </div>
 
     <div>
+        <hr>
         <div class="dropdown">
-            <a class="dropdown-toggle footer-user" data-bs-toggle="dropdown">
+            <a class="dropdown-toggle footer-user" data-bs-toggle="dropdown" style="display: flex; align-items: center; gap: 8px;">
+                <img src="/static/images/Herman_AI.webp" alt="Аватар" class="user-avatar" width="30" height="30">
                 Пользователь
             </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Профиль</a></li>
-                <li><a class="dropdown-item" href="#">Выход</a></li>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="/profile">Профиль</a></li>
+                <li><a class="dropdown-item" href="/logout">Выход</a></li>
             </ul>
         </div>
     </div>

@@ -1,7 +1,6 @@
 from http.server import BaseHTTPRequestHandler
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).parent.parent
 
 # Для определения Content-Type
@@ -9,20 +8,30 @@ CONTENT_TYPES = {
     ".html": "text/html; charset=utf-8",
     ".css": "text/css",
     ".svg": "image/svg+xml",
+    ".webp": "image/webp",
 }
+
+routes = {
+    "/": "index.html",
+    "/categories": "categories.html",
+    "/category/1": "category_1.html",
+    "/contacts": "contacts.html",
+}
+
 
 class MyServer(BaseHTTPRequestHandler):
     """Специальный класс, который отвечает за обработку входящих запросов от клиентов."""
 
     def do_GET(self):
         """Метод для обработки входящих GET-запросов."""
-        if self.path.startswith("/static/"):
-            self.serve_static()
-        elif self.path == "/" or self.path == "/index.html":
-            self.serve_html("index.html")
-        elif self.path == "/contacts":
-            self.serve_html("contacts.html")
-        else:
+        try:
+            if self.path.startswith("/static/"):
+                self.serve_static()
+            else:
+                template_name = routes.get(self.path, "templates/404.html")
+                self.serve_html(template_name)
+
+        except FileNotFoundError:
             self.send_error(404, "Page not found")
 
     def serve_html(self, template_name):
