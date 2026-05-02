@@ -28,7 +28,7 @@ class MyServer(BaseHTTPRequestHandler):
             if self.path.startswith("/static/"):
                 self.serve_static()
             else:
-                template_name = routes.get(self.path, "templates/404.html")
+                template_name = routes.get(self.path, "404.html")
                 self.serve_html(template_name)
 
         except FileNotFoundError:
