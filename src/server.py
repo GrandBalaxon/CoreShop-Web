@@ -1,4 +1,5 @@
 from http.server import BaseHTTPRequestHandler
+from pathlib import Path
 
 
 class MyServer(BaseHTTPRequestHandler):
@@ -10,7 +11,10 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_header("Content-type", "text/html")  # Отправка типа данных, который будет передаваться
         self.end_headers()  # Завершение формирования заголовков ответа
 
-        with open("templates/index.html", "r", encoding="utf-8") as file:
+        project_root = Path(__file__).parent.parent
+        template_path = project_root / "templates" / "index.html"
+
+        with open(template_path, "r", encoding="utf-8") as file:
             html = file.read()
 
         self.wfile.write(html.encode("utf-8"))
