@@ -14,7 +14,7 @@ CONTENT_TYPES = {
 routes = {
     "/": "index.html",
     "/categories": "categories.html",
-    "/category/1": "category_1.html",
+    "/category_1": "category_1.html",
     "/contacts": "contacts.html",
 }
 
