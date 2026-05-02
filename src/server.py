@@ -13,6 +13,8 @@ class MyServer(BaseHTTPRequestHandler):
             self.serve_html("index.html")
         elif self.path == "/contacts":
             self.serve_html("contacts.html")
+        else:
+            self.send_error(404, "Page not found")
 
     def serve_html(self, template_name):
         """Отдаёт HTML-шаблон из папки templates"""
