@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>404</title>
+    <title>404 — Страница не найдена</title>
+
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container-404 {
+            text-align: center;
+            max-width: 800px;
+            padding: 60px;
+        }
+
+        .img-404 {
+            width: 100%;
+            height: auto;
+            display: flex;
+            margin: 30px;
+        }
+    </style>
 </head>
 <body>
+
+<div class="container-404">
+    <img src="/static/images/sad_cat_404.webp" alt="404" class="img-404">
+
+    <a href="/" class="btn btn-outline-primary">
+        На главную
+    </a>
+</div>
 
 </body>
 </html>
