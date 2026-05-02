@@ -30,7 +30,9 @@
         .sidebar a {
             color: #c7c7c7;
             text-decoration: none;
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             padding: 8px 10px;
             border-radius: 6px;
             margin-bottom: 5px;
@@ -67,19 +69,42 @@
 <div class="sidebar">
 
     <div>
-        <h5>
-        <svg class="bi" width="1em" height="1em" fill="currentColor">
-          <use xlink:href="/static/images/bootstrap-fill.svg"/>
-        </svg>
-        Меню
+        <h5 style="display: flex; align-items: center; gap: 8px;">
+            <svg class="bi" width="25px" height="25px" fill="currentColor">
+              <use href="/static/images/bootstrap-fill.svg"/>
+            </svg>
+            Меню
         </h5>
 
         <hr>
 
-        <a class="active" href="/">Главная</a>
-        <a href="/categories">Категории</a>
-        <a href="/orders">Заказы</a>
-        <a href="/contacts">Контакты</a>
+        <a class="active" href="/">
+            <svg class="bi" width="1em" height="1em" fill="currentColor">
+              <use href="/static/images/house-door.svg"/>
+            </svg>
+            Главная
+        </a>
+
+        <a href="/categories">
+            <svg class="bi" width="1em" height="1em" fill="currentColor">
+              <use href="/static/images/tags.svg"/>
+            </svg>
+            Категории
+        </a>
+
+        <a href="/orders">
+            <svg class="bi" width="1em" height="1em" fill="currentColor">
+              <use href="/static/images/cart.svg"/>
+            </svg>
+            Заказы
+        </a>
+
+        <a href="/contacts">
+            <svg class="bi" width="1em" height="1em" fill="currentColor">
+              <use href="/static/images/person-circle.svg"/>
+            </svg>
+            Контакты
+        </a>
     </div>
 
     <div>
