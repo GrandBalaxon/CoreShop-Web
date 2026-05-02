@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Главная</title>
+    <title>Категория 1</title>
 
     <!-- Bootstrap -->
     <link href="static/css/bootstrap.min.css" rel="stylesheet"/>
@@ -49,7 +49,14 @@
 
         .content {
             margin-left: 260px;
-            padding: 30px;
+            padding: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 1000px;
         }
 
         .footer-user {
@@ -91,7 +98,7 @@
             Главная
         </a>
 
-        <a href="/categories">
+        <a class="active" href="/categories">
             <svg class="bi" width="1em" height="1em" fill="currentColor">
               <use href="/static/images/tags.svg"/>
             </svg>
@@ -105,7 +112,7 @@
             Заказы
         </a>
 
-        <a class="active" href="/contacts">
+        <a href="/contacts">
             <svg class="bi" width="1em" height="1em" fill="currentColor">
               <use href="/static/images/person-circle.svg"/>
             </svg>
