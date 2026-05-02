@@ -1,16 +1,16 @@
-# Импорт встроенной библиотеки для работы веб-сервера
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler
 
 
 class MyServer(BaseHTTPRequestHandler):
-    """
-        Специальный класс, который отвечает за
-        обработку входящих запросов от клиентов
-    """
+    """Специальный класс, который отвечает за обработку входящих запросов от клиентов."""
 
     def do_GET(self):
-        """ Метод для обработки входящих GET-запросов """
+        """Метод для обработки входящих GET-запросов."""
         self.send_response(200)  # Отправка кода ответа
-        self.send_header("Content-type", "application/json")  # Отправка типа данных, который будет передаваться
+        self.send_header("Content-type", "text/html")  # Отправка типа данных, который будет передаваться
         self.end_headers()  # Завершение формирования заголовков ответа
-        self.wfile.write(bytes("{'message': 'OK'}", "utf-8"))  # Тело ответа
+
+        with open("templates/index.html", "r", encoding="utf-8") as file:
+            html = file.read()
+
+        self.wfile.write(html.encode("utf-8"))
